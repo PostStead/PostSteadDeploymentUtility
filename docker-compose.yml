@@ -1,0 +1,92 @@
+version: '2'
+
+services:
+  userservice:
+    image: 'alecsandu/poststead_userservice:1.0.0'
+    container_name: PostStead_UserService
+    depends_on:
+      - db
+      - rabbitmq
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=pR01#ctj(v*d@!ddA
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=rabbitmq
+      - SPRING_RABBITMQ_PASSWORD=pjk%ss]@o*e0!@N
+      - SPRING_RABBITMQ_SSL_ENABLED=false
+    ports:
+      - '8081:8081'
+    networks:
+      pc-network:
+
+  postservice:
+    image: 'alecsandu/poststead_postservice:1.0.0'
+    container_name: PostStead_PostService
+    depends_on:
+      - db
+      - rabbitmq
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=pR01#ctj(v*d@!ddA
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=rabbitmq
+      - SPRING_RABBITMQ_PASSWORD=pjk%ss]@o*e0!@N
+      - SPRING_RABBITMQ_SSL_ENABLED=false
+    ports:
+      - '8082:8082'
+    networks:
+      pc-network:
+
+  auditservice:
+    image: 'alecsandu/poststead_auditservice:1.0.0'
+    container_name: PostStead_AuditService
+    depends_on:
+      - db
+      - rabbitmq
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=pR01#ctj(v*d@!ddA
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=rabbitmq
+      - SPRING_RABBITMQ_PASSWORD=pjk%ss]@o*e0!@N
+      - SPRING_RABBITMQ_SSL_ENABLED=false
+    ports:
+      - '8083:8083'
+    networks:
+      pc-network:
+
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: PostStead_DB
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pR01#ctj(v*d@!ddA
+    ports:
+      - '5432:5432'
+    networks:
+      pc-network:
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management-alpine
+    restart: unless-stopped
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: pjk%ss]@o*e0!@N
+    networks:
+      pc-network:
+
+networks:
+  pc-network:
