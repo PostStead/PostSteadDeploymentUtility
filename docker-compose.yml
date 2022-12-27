@@ -1,6 +1,14 @@
 version: '2'
 
 services:
+  poststeadgateway:
+    image: 'alecsandu/poststead_gateway:1.0.0'
+    container_name: PostStead_UserService
+    ports:
+      - '8080:8080'
+    networks:
+      pc-network:
+
   userservice:
     image: 'alecsandu/poststead_userservice:1.0.0'
     container_name: PostStead_UserService
