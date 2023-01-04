@@ -5,7 +5,7 @@ services:
     image: 'alecsandu/poststead_gateway:1.0.0'
     container_name: PostStead_GatewayService
     ports:
-      - '8080:8080'
+      - '3000:8080'
     networks:
       pc-network:
 
