@@ -2,7 +2,7 @@ version: '2'
 
 services:
   poststeadgateway:
-    image: 'alecsandu/poststead_gateway:1.0.0'
+    image: 'alecsandu/poststead_gateway:latest'
     container_name: PostStead_GatewayService
     ports:
       - '3000:8080'
@@ -10,7 +10,7 @@ services:
       pc-network:
 
   userservice:
-    image: 'alecsandu/poststead_userservice:1.0.0'
+    image: 'alecsandu/poststead_userservice:latest'
     container_name: PostStead_UserService
     depends_on:
       - db
@@ -31,7 +31,7 @@ services:
       pc-network:
 
   postservice:
-    image: 'alecsandu/poststead_postservice:1.0.0'
+    image: 'alecsandu/poststead_postservice:latest'
     container_name: PostStead_PostService
     depends_on:
       - db
@@ -52,7 +52,7 @@ services:
       pc-network:
 
   auditservice:
-    image: 'alecsandu/poststead_auditservice:1.0.0'
+    image: 'alecsandu/poststead_auditservice:latest'
     container_name: PostStead_AuditService
     depends_on:
       - db
