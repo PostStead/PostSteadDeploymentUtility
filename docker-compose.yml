@@ -3,7 +3,11 @@ version: '3.8'
 services:
   poststeadgateway:
     image: 'alecsandu/poststead_gateway:latest'
-    container_name: PostStead_GatewayService
+    container_name: poststeadgateway
+    hostname: poststeadgateway
+    depends_on:
+      - userservice
+      - postservice
     ports:
       - '3000:8080'
     networks:
@@ -11,7 +15,8 @@ services:
 
   userservice:
     image: 'alecsandu/poststead_userservice:latest'
-    container_name: PostStead_UserService
+    container_name: userservice
+    hostname: userservice
     depends_on:
       - db
       - rabbitmq
@@ -32,7 +37,8 @@ services:
 
   postservice:
     image: 'alecsandu/poststead_postservice:latest'
-    container_name: PostStead_PostService
+    container_name: postservice
+    hostname: postservice
     depends_on:
       - db
       - rabbitmq
@@ -53,7 +59,7 @@ services:
 
   auditservice:
     image: 'alecsandu/poststead_auditservice:latest'
-    container_name: PostStead_AuditService
+    container_name: auditservice
     depends_on:
       - db
       - rabbitmq
@@ -98,6 +104,3 @@ services:
 
 networks:
   pc-network:
-#  default:
-#    external:
-#      name: poststeaddeploymentutility_pc-network
