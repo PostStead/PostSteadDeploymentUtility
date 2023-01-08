@@ -8,6 +8,8 @@ services:
     depends_on:
       - userservice
       - postservice
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
     ports:
       - '3000:8080'
     networks:
