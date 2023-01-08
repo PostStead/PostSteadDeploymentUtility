@@ -80,7 +80,7 @@ services:
 
   db:
     image: 'postgres:13.1-alpine'
-    container_name: PostStead_DB
+    container_name: postgresdb
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=pR01#ctj(v*d@!ddA
