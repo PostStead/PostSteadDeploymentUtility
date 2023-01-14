@@ -81,7 +81,7 @@ services:
       pc-network:
 
   frontendservice:
-    image: 'adialexiu/poststead_frontendservice:latest'
+    image: 'alecsandu/poststead_frontendservice:latest'
     container_name: frontendservice
     hostname: frontendservice
     ports:
