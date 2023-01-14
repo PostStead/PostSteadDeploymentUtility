@@ -80,6 +80,15 @@ services:
     networks:
       pc-network:
 
+  frontendservice:
+    image: 'adialexiu/poststead_frontendservice:latest'
+    container_name: frontendservice
+    hostname: frontendservice
+    ports:
+      - '4200:4200'
+    networks:
+      pc-network:
+
   db:
     image: 'postgres:13.1-alpine'
     container_name: postgresdb
