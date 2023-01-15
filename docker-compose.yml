@@ -5,6 +5,12 @@ services:
     image: 'alecsandu/poststead_gateway:latest'
     container_name: poststeadgateway
     hostname: poststeadgateway
+    deploy:
+      replicas: 1
+      placement:
+        max_replicas_per_node: 1
+      restart_policy:
+        condition: on-failure
     depends_on:
       - userservice
       - postservice
@@ -19,6 +25,12 @@ services:
     image: 'alecsandu/poststead_userservice:latest'
     container_name: userservice
     hostname: userservice
+    deploy:
+      replicas: 1
+      placement:
+        max_replicas_per_node: 1
+      restart_policy:
+        condition: on-failure
     depends_on:
       - db
       - rabbitmq
@@ -41,6 +53,12 @@ services:
     image: 'alecsandu/poststead_postservice:latest'
     container_name: postservice
     hostname: postservice
+    deploy:
+      replicas: 2
+      placement:
+        max_replicas_per_node: 1
+      restart_policy:
+        condition: on-failure
     depends_on:
       - db
       - rabbitmq
@@ -62,6 +80,13 @@ services:
   auditservice:
     image: 'alecsandu/poststead_auditservice:latest'
     container_name: auditservice
+    hostname: auditservice
+    deploy:
+      replicas: 1
+      placement:
+        max_replicas_per_node: 1
+      restart_policy:
+        condition: on-failure
     depends_on:
       - db
       - rabbitmq
@@ -84,6 +109,14 @@ services:
     image: 'alecsandu/poststead_frontendservice:latest'
     container_name: frontendservice
     hostname: frontendservice
+    deploy:
+      replicas: 1
+      placement:
+        max_replicas_per_node: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - poststeadgateway
     ports:
       - '4200:80'
     networks:
@@ -92,6 +125,9 @@ services:
   db:
     image: 'postgres:13.1-alpine'
     container_name: postgresdb
+    deploy:
+      restart_policy:
+        condition: on-failure
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=pR01#ctj(v*d@!ddA
@@ -105,6 +141,9 @@ services:
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:3-management-alpine
+    deploy:
+      restart_policy:
+        condition: on-failure
     restart: unless-stopped
     ports:
       - '5672:5672'
