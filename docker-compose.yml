@@ -99,6 +99,8 @@ services:
       - '5432:5432'
     networks:
       pc-network:
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
 
   rabbitmq:
     container_name: rabbitmq
@@ -112,6 +114,12 @@ services:
       RABBITMQ_DEFAULT_PASS: pjk%ss]@o*e0!@N
     networks:
       pc-network:
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq/mnesia/
 
 networks:
   pc-network:
+
+volumes:
+  postgres-data:
+  rabbitmq-data:
